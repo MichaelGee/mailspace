@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   return (
     <div className='container'>
       <main className='col m8 left'>
@@ -23,12 +23,22 @@ const Login = () => {
                 <label for='password'>Password</label>
               </div>
             </div>
+            <div className='confirm_password'>
+              <div className='input-field'>
+                <input
+                  id='confirm_password'
+                  type='password'
+                  className='validate'
+                />
+                <label for='password'>Confirm Password</label>
+              </div>
+            </div>
             <div className='login-button'>
-              <a class='waves-effect waves-light btn'>Log In</a>
+              <a class='waves-effect waves-light btn'>Sign Up</a>
             </div>
             <p>
-              <Link to='/signup'>
-                <a className='signup'>Sign up?</a>
+              <Link to='/'>
+                <a className='login'>Already have an account?</a>
               </Link>
             </p>
           </form>
@@ -38,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

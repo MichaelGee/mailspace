@@ -1,8 +1,10 @@
-
+@import url('https://fonts.googleapis.com/css?family=Cinzel&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 body{
   padding: 0;
   margin: 0;
   border: none;
+  font-family: 'Roboto', sans-serif;
 }
 .container{
   display: flex;
@@ -24,6 +26,7 @@ body{
   justify-content: center;
   margin: 40vh 50px;
   text-align: center;
+  font-family: 'Cinzel', serif;
 }
 
 .right{
@@ -35,6 +38,9 @@ body{
   width: 90%;
   margin: auto;
 }
+.form-container h1{
+  font-weight: 500;
+}
 
 .btn{
   border-radius: 1px;
@@ -42,4 +48,8 @@ body{
 
 .form-container{
   margin-top: 30vh;
+}
+
+.btn{
+  background: rgb(41, 131, 99);
 }
