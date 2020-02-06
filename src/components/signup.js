@@ -1,12 +1,12 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import firebase from "./fireConfig";
 
 const Signup = () => {
-  const { username, setUsername } = useState("");
-  const { email, setEmail } = useState("");
-  const { password, setPassword } = useState("");
-  const { confirmPassword, setConfirmPassword } = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,6 +15,7 @@ const Signup = () => {
   const createUser = async () => {
     try {
       await firebase.signup(username, email, password);
+      console.log("Account created successfully");
     } catch (error) {
       console.log(error.message);
     }
@@ -48,7 +49,7 @@ const Signup = () => {
                   type='password'
                   className='validate'
                   value={password}
-                  onChange={e => setPassword(e.value.target)}
+                  onChange={e => setPassword(e.target.value)}
                 />
                 <label for='password'>Password</label>
               </div>
