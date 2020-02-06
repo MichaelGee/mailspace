@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import firebase from "./fireConfig";
+import fire from "./fireConfig";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +14,7 @@ const Signup = () => {
 
   const createUser = async () => {
     try {
-      await firebase.signup(username, email, password);
+      await fire.signup(username, email, password);
       console.log("Account created successfully");
     } catch (error) {
       console.log(error.message);

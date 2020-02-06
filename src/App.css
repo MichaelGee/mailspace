@@ -32,6 +32,7 @@ body{
 .right{
   background: white;
   width: 40%;
+  height: 100vh;
 }
 
 .form-container{
@@ -52,4 +53,8 @@ body{
 
 .btn{
   background: rgb(41, 131, 99);
+}
+
+.copyright{
+  margin-top: 10rem;
 }
