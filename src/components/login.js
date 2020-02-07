@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import fire from "./fireConfig";
 import { withRouter } from "react-router-dom";
@@ -6,7 +6,13 @@ import { withRouter } from "react-router-dom";
 const Login = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signedIn, setSignedIn] = React.useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+
+  useEffect(() => {
+    fire.isInitialized(user => {
+      setSignedIn(!!user);
+    });
+  });
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,22 +21,16 @@ const Login = props => {
   const login = async () => {
     try {
       await fire.login(email, password);
+      props.history.replace("/spaces");
       console.log("Logged in successfully");
-      props.history.replace("./spaces");
     } catch (error) {
       console.log(error.message);
     }
   };
 
   if (fire.getCurrentUser()) {
-    props.history.push("/seller");
+    props.history.push("/spaces");
   }
-
-  React.useEffect(() => {
-    fire.isInitialized(user => {
-      setSignedIn(!!user);
-    });
-  });
 
   return (
     <div className='container'>
@@ -50,7 +50,7 @@ const Login = props => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                 />
-                <label for='email'>Email</label>
+                <label htmlFor='email'>Email</label>
               </div>
             </div>
             <div className='password'>
@@ -62,17 +62,22 @@ const Login = props => {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                 />
-                <label for='password'>Password</label>
+                <label htmlFor='password'>Password</label>
               </div>
             </div>
             <div className='login-button'>
-              <a class='waves-effect waves-light btn' onClick={login}>
+              <a
+                className='waves-effect waves-light btn'
+                onClick={() => {
+                  login();
+                }}
+              >
                 Log In
               </a>
             </div>
             <p>
-              <Link to='/signup'>
-                <a className='signup'>Sign up?</a>
+              <Link className='signup' to='/signup'>
+                Sign up?
               </Link>
             </p>
             {signedIn ? props.history.replace("/spaces") : null}

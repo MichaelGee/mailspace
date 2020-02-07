@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import firebase from "./fireConfig";
+import fire from "./components/fireConfig";
 
 function ProtectedRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
       render={props => {
-        if (firebase.getCurrentUser()) {
+        if (fire.getCurrentUser()) {
           return <Component {...props} />;
         } else {
           return (
