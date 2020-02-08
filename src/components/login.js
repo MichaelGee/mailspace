@@ -13,6 +13,7 @@ const Login = ({ history }) => {
           .auth()
           .signInWithEmailAndPassword(email.value, password.value);
         history.push("/spaces");
+        console.log("Logged in successfully");
       } catch (error) {
         console.log(error);
       }
@@ -56,9 +57,9 @@ const Login = ({ history }) => {
               </div>
             </div>
             <div className='login-button'>
-              <a type='submit' className='waves-effect waves-light btn'>
+              <button type='submit' className='waves-effect waves-light btn'>
                 Log In
-              </a>
+              </button>
             </div>
             <p>
               <Link className='signup' to='/signup'>

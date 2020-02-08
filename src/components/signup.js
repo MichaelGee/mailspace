@@ -61,9 +61,9 @@ const Signup = ({ history }) => {
               </div>
             </div>
             <div className='login-button'>
-              <a type='submit' class='waves-effect waves-light btn'>
+              <button type='submit' class='waves-effect waves-light btn'>
                 Sign Up
-              </a>
+              </button>
             </div>
             <p>
               <Link to='/'>
