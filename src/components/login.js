@@ -1,35 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import fire from "./fireConfig";
-import { withRouter } from "react-router-dom";
+import React, { useCallback, useContext } from "react";
+import { Link, withRouter, Redirect } from "react-router-dom";
+import firebaseConfig from "./fireConfig";
+import { AuthContext } from "./auth";
 
-const Login = props => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [signedIn, setSignedIn] = useState(false);
-
-  useEffect(() => {
-    fire.isInitialized(user => {
-      setSignedIn(!!user);
-    });
-  });
-
-  const handleSubmit = e => {
-    e.preventDefault();
-  };
-
-  const login = async () => {
-    try {
-      await fire.login(email, password);
-      props.history.replace("/spaces");
-      console.log("Logged in successfully");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  if (fire.getCurrentUser()) {
-    props.history.push("/spaces");
+const Login = ({ history }) => {
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await firebaseConfig
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push("/spaces");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [history]
+  );
+  const { currentUser } = useContext(AuthContext);
+  if (currentUser) {
+    return <Redirect to={"/spaces"} />;
   }
 
   return (
@@ -40,15 +32,14 @@ const Login = props => {
       <aside className='col m4 right'>
         <div className='form-container'>
           <h1>Dostow Spaces</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLogin}>
             <div className='email'>
               <div className='input-field'>
                 <input
+                  name='email'
                   id='email'
                   type='email'
                   className='validate'
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
                 />
                 <label htmlFor='email'>Email</label>
               </div>
@@ -56,22 +47,16 @@ const Login = props => {
             <div className='password'>
               <div className='input-field'>
                 <input
+                  name='password'
                   id='password'
                   type='password'
                   className='validate'
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
                 />
                 <label htmlFor='password'>Password</label>
               </div>
             </div>
             <div className='login-button'>
-              <a
-                className='waves-effect waves-light btn'
-                onClick={() => {
-                  login();
-                }}
-              >
+              <a type='submit' className='waves-effect waves-light btn'>
                 Log In
               </a>
             </div>
@@ -80,7 +65,6 @@ const Login = props => {
                 Sign up?
               </Link>
             </p>
-            {signedIn ? props.history.replace("/spaces") : null}
           </form>
         </div>
         <div className='copyright'>

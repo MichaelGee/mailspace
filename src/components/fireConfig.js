@@ -1,7 +1,7 @@
-import app from "firebase/app";
+import * as firebase from "firebase/app";
 import "firebase/auth";
 
-const firebaseConfig = {
+const firebaseConfig = firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
@@ -10,9 +10,11 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGES_ENDERURL,
   appId: process.env.REACT_APP_APP_ID,
   measureId: process.env.MEASUREMENT_ID
-};
+});
 
-class Fire {
+export default firebaseConfig;
+
+/* class Fire {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
@@ -43,4 +45,4 @@ class Fire {
   }
 }
 
-export default new Fire();
+export default new Fire(); */

@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import fire from "./components/fireConfig";
+import { AuthContext } from "./components/auth";
 
-function ProtectedRoute({ component: Component, ...rest }) {
+function ProtectedRoute({ component: RouteComponent, ...rest }) {
+  const { currentUser } = useContext(AuthContext);
   return (
     <Route
       {...rest}
-      render={props => {
-        if (fire.getCurrentUser()) {
-          return <Component {...props} />;
+      render={routeProps => {
+        if (!!currentUser) {
+          return <RouteComponent {...routeProps} />;
         } else {
-          return (
-            <Redirect to={{ pathname: "/", state: { from: props.location } }} />
-          );
+          return <Redirect to={"/"} />;
         }
       }}
     />

@@ -4,27 +4,22 @@ import Login from "./components/login";
 import Signup from "./components/signup";
 import Spaces from "./components/spaces";
 import ProtectedRoute from "./protectedRoute";
-import fire from "./components/fireConfig";
+import { AuthProvider } from "./components/auth";
 import "./App.css";
 
 function App() {
-  const [initializedFirebase, setInitializeFirebase] = React.useState(false);
-  React.useEffect(() => {
-    fire.isInitialized().then(val => {
-      setInitializeFirebase(val);
-    });
-  });
-
   return (
-    <Router>
-      <div className='App'>
-        <Switch>
-          <Route component={Login} exact path='/' />
-          <Route component={Signup} exact path='/signup' />
-          <ProtectedRoute path='/spaces' component={Spaces} />
-        </Switch>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className='App'>
+          <Switch>
+            <ProtectedRoute path='/spaces' component={Spaces} />
+            <Route component={Signup} exact path='/signup' />
+            <Route component={Login} exact path='/' />
+          </Switch>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

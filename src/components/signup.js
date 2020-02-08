@@ -1,25 +1,23 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import fire from "./fireConfig";
+import React, { useCallback } from "react";
+import { Link, withRouter } from "react-router-dom";
+import firebaseConfig from "./fireConfig";
 
-const Signup = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-  };
-
-  const createUser = async () => {
-    try {
-      await fire.signup(username, email, password);
-      console.log("Account created successfully");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+const Signup = ({ history }) => {
+  const handleSignUp = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await firebaseConfig
+          .auth()
+          .createUserWithEmailAndPassword(email.value, password.value);
+        history.push("/spaces");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [history]
+  );
 
   return (
     <div className='container'>
@@ -29,15 +27,14 @@ const Signup = () => {
       <aside className='col m4 right'>
         <div className='form-container'>
           <h1>Dostow Spaces</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSignUp}>
             <div className='email'>
               <div className='input-field'>
                 <input
+                  name='email'
                   id='email'
                   type='email'
                   className='validate'
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
                 />
                 <label for='email'>Email</label>
               </div>
@@ -45,11 +42,10 @@ const Signup = () => {
             <div className='password'>
               <div className='input-field'>
                 <input
+                  name='password'
                   id='password'
                   type='password'
                   className='validate'
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
                 />
                 <label for='password'>Password</label>
               </div>
@@ -60,14 +56,12 @@ const Signup = () => {
                   id='confirm_password'
                   type='password'
                   className='validate'
-                  value={confirmPassword}
-                  onChange={e => setConfirmPassword(e.target.value)}
                 />
                 <label for='password'>Confirm Password</label>
               </div>
             </div>
             <div className='login-button'>
-              <a class='waves-effect waves-light btn' onClick={createUser}>
+              <a type='submit' class='waves-effect waves-light btn'>
                 Sign Up
               </a>
             </div>
@@ -83,4 +77,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default withRouter(Signup);
