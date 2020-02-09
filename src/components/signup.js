@@ -12,6 +12,7 @@ const Signup = ({ history }) => {
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value);
         history.push("/spaces");
+        console.log("Successfully Signed Up");
       } catch (error) {
         console.log(error);
       }

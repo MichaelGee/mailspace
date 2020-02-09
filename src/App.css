@@ -12,13 +12,13 @@ body{
   max-width: 100% !important;
 }
 
-.left{
+.left-side{
   background: rgb(41, 131, 99);
   width: 60%;
   height: 100vh;
 }
 
-.left h1{
+.left-side h1{
   font-size: 3rem;
   color: white;
   display: flex;
@@ -29,7 +29,7 @@ body{
   font-family: 'Cinzel', serif;
 }
 
-.right{
+.right-side{
   background: white;
   width: 40%;
   height: 100vh;
@@ -57,4 +57,24 @@ body{
 
 .copyright{
   margin-top: 10rem;
+}
+.brand-logo{
+  margin-left: 2rem;
+}
+
+/* Spaces */
+.nav-wrapper{
+  background: rgb(41, 131, 99) !important;
+}
+
+
+.img-container{
+  margin-right: 0rem;
+  padding: 4px;
+}
+.img{
+  height: 30px;
+  padding: 0;
+  display: inline-block;
+  color: white;
 }
