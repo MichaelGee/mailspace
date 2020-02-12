@@ -11,13 +11,10 @@ const Nav = () => {
     M.AutoInit();
   }, []);
 
+  const user = firebaseConfig.auth().currentUser;
   return (
     <div>
       <ul id='dropdown1' className='dropdown-content'>
-        <li>
-          <a href='#!'>two</a>
-        </li>
-        <li className='divider'></li>
         <li>
           <a href='#!' onClick={() => firebaseConfig.auth().signOut()}>
             Logout

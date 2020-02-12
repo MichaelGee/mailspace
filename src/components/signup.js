@@ -22,10 +22,10 @@ const Signup = ({ history }) => {
 
   return (
     <div className='container'>
-      <main className='col m8 left'>
+      <main className='col m8 left-side'>
         <h1>Get into your space</h1>
       </main>
-      <aside className='col m4 right'>
+      <aside className='col m4 right-side'>
         <div className='form-container'>
           <h1>Dostow Spaces</h1>
           <form onSubmit={handleSignUp}>
