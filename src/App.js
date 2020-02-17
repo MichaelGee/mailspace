@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Login from "./components/login";
 import Signup from "./components/signup";
 import Spaces from "./components/spaces";
+import Mailspace from "./components/mailspace";
 import ProtectedRoute from "./protectedRoute";
 import { AuthProvider } from "./components/auth";
 import "./App.css";
@@ -16,6 +17,7 @@ function App() {
             <ProtectedRoute path='/spaces' component={Spaces} />
             <Route component={Signup} exact path='/signup' />
             <Route component={Login} exact path='/' />
+            <Route component={Mailspace} exact path='/mailspace' />
           </Switch>
         </div>
       </Router>

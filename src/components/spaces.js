@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "./nav";
+import { Link } from "react-router-dom";
 
 const Spaces = () => {
   return (
@@ -11,7 +12,9 @@ const Spaces = () => {
           <p>osiloke.com</p>
         </div>
         <div className='mailspace_button'>
-          <button class='btnn success'>Mailspace</button>
+          <Link to='/mailspace'>
+            <button class='btnn success'>Mailspace</button>
+          </Link>
         </div>
       </div>
     </div>
